@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="minecraftScaleCalculator" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="minecraftScaleCalculator" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="minecraftScaleCalculator" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="minecraftScaleCalculator" class="no-js"> <!--<![endif]-->
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Minecraft Scale Calulator</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="app.css">
+    <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:500,300,700,400' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+
+    <div class="tsw-calculator" ng-controller="tswMcSCalculator as calculcator">
+        <h1>Minecraft Scale Calculator</h1>
+
+        <p>This calculator can convert a distance into a number of blocks in Minecraft by rounding to the nearest meter and using a blocks per meter scale.</p>
+
+        <form>
+
+            <div class="tsw-control-group">
+                <label>Distance</label>
+                <input type="number" ng-model="calculcator.data.distance"/>
+
+                <div class="tsw-styled-select">
+                    <select ng-model="calculcator.data.unit">
+                        <option value="mm">mm</option>
+                        <option value="cm">cm</option>
+                        <option value="m">m</option>
+                        <option value="inches">inches</option>
+                        <option value="feet">feet</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="tsw-control-group">
+                <label>Scale</label>
+                <input type="number" ng-model="calculcator.data.scale"/> <span class="tsw-scale">blocks/meter</span>
+            </div>
+
+            <div class="tsw-control-group">
+                <label>Blocks</label>
+                <input type="number" value="{{calculcator.blocks()}}"/>
+            </div>
+
+        </form>
+    </div>
+
+
+
+
+    <!-- In production use:
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+    -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="view1/view1.js"></script>
+    <script src="components/version/version.js"></script>
+    <script src="components/version/version-directive.js"></script>
+    <script src="components/version/interpolate-filter.js"></script>
+
+</body>
+</html>
