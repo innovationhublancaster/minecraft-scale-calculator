@@ -1,11 +1,19 @@
 'use strict';
 
 angular.module('minecraftScaleCalculator', [])
-	
-	.factory('MeterConversionFactory', ['tswDistance', function (tswDistance) {
+
+	.controller('tswMcSCalculator',[function(MeterConversionFactory) {
 		var self = this;
 
-		self.convert = function(tswDistance) {
+		self.data = {
+						distance: 1000,
+						unit: 'mm',
+						scale: 2
+					};
+
+		self.blocks = function () {
+			var m;
+
 			switch(self.data.unit) {
 				case "mm" :
 					m = self.data.distance / 1000;
@@ -25,26 +33,10 @@ angular.module('minecraftScaleCalculator', [])
 				default:
 					m = self.data.distance / 1000;
 			}
-		}
-
-	}])
-
-	.controller('tswMcSCalculator',['MeterConversionFactory', function(MeterConversionFactory) {
-		var self = this;
-
-		self.data = {
-						distance: 1000,
-						unit: 'mm',
-						scale: 2
-					};
-
-		self.blocks = function () {
-			var m = MeterConversionFactory.convert(self.data.distance);
 
 			var roundedm = Math.round(m).toFixed(1);
 
 			return (roundedm * self.data.scale).toFixed(0);
 		}
-
 
 	}]);
