@@ -2,7 +2,8 @@
 
 angular.module('minecraftScaleCalculator', [])
 
-	.controller('tswMcSCalculator',[function(MeterConversionFactory) {
+
+	.controller('tswMcSCalculator',[function() {
 		var self = this;
 
 		self.data = {
