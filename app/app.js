@@ -50,6 +50,7 @@ angular.module('minecraftScaleCalculator', [])
 			paperSize: '3',
 			planSize: '1',
 			planScale: 200,
+			paperMagnification: 1,
 			unit: 'mm',
 			scale: 2
 		};
@@ -58,11 +59,10 @@ angular.module('minecraftScaleCalculator', [])
 			// Workout magnifcation of plans
 			var paperMagnification = 1;
 
-			var sizeOne = self.data.paperSize;
-			var sizeTwo = self.data.planSize;
+			var sizeOne = parseInt(self.data.paperSize);
+			var sizeTwo = parseInt(self.data.planSize);
 
 			if(sizeTwo > sizeOne) {
-				console.log('paper bigger than plans');
 				var loopc = sizeTwo - sizeOne;
 				for (var i=0;i<loopc;i++)
 				{
@@ -71,18 +71,15 @@ angular.module('minecraftScaleCalculator', [])
 
 			} else {
 				var loopc = sizeOne - sizeTwo;
-				console.log('paper is smaller or same as plans');
 				for (var j=0;j<loopc;j++)
 				{
 					paperMagnification = paperMagnification * Math.sqrt(2);
 				}
 			}
 
-			paperMagnification = (paperMagnification).toFixed(4);
+			self.data.paperMagnification = (paperMagnification).toFixed(4);
 
-			console.log(paperMagnification);
-
-			var scaledDistance = (self.data.distance * paperMagnification) * self.data.planScale;
+			var scaledDistance = (self.data.distance * self.data.paperMagnification) * self.data.planScale;
 
 			var m;
 
