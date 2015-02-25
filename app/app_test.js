@@ -12,7 +12,7 @@ describe('minecraftScaleCalculator', function() {
 	describe('tswMcSCalculator', function(){
 
 		beforeEach(function() {
-			controller = $controller('tswMcSCalculator');
+			controller = $controller('TswMcSCalculator');
 		});
 
 		it('should be defined', inject(function($controller) {

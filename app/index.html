@@ -24,7 +24,7 @@
 <body>
 
 
-    <div class="tsw-calculator" ng-controller="tswMcSCalculator as calculcator">
+    <div class="tsw-calculator" ng-controller="TswMcSCalculator as calculator">
         <h1>Minecraft Scale Calculator</h1>
 
         <p>This calculator can convert a distance into a number of blocks in Minecraft by rounding to the nearest meter and using a blocks per meter scale.</p>
@@ -33,10 +33,10 @@
 
             <div class="tsw-control-group">
                 <label>Distance</label>
-                <input type="number" ng-model="calculcator.data.distance"/>
+                <input type="number" class="short" ng-model="calculator.data.distance"/>
 
                 <div class="tsw-styled-select">
-                    <select ng-model="calculcator.data.unit">
+                    <select ng-model="calculator.data.unit">
                         <option value="mm">mm</option>
                         <option value="cm">cm</option>
                         <option value="m">m</option>
@@ -48,16 +48,91 @@
 
             <div class="tsw-control-group">
                 <label>Scale</label>
-                <input type="number" ng-model="calculcator.data.scale"/> <span class="tsw-scale">blocks/meter</span>
+                <input type="number" class="short" ng-model="calculator.data.scale"/> <span class="tsw-scale">blocks/meter</span>
             </div>
 
             <div class="tsw-control-group">
                 <label>Blocks</label>
-                <input type="number" value="{{calculcator.blocks()}}"/>
+                <input type="number" value="{{calculator.blocks()}}"/>
             </div>
 
         </form>
     </div>
+
+    <div class="tsw-calculator" ng-controller="TswMcSAdvancedCalculator as calculator">
+        <h1>Paper Scales</h1>
+
+        <p>This calulator allow you to enter a distance measured from a paper plan, setting the plan size and scale and convert this to the correct distance and then to Minecraft blocks.</p>
+
+        <!--<p>This calculator can convert a distance into a number of blocks in Minecraft by rounding to the nearest meter and using a blocks per meter scale.</p>-->
+
+        <form>
+
+            <div class="tsw-control-group">
+                <label>Distance as mesaured from paper plan</label>
+                <input type="number" class="short" ng-model="calculator.data.distance"/>
+
+
+                <div class="tsw-styled-select">
+                    <select ng-model="calculator.data.unit">
+                        <option value="mm">mm</option>
+                        <option value="cm">cm</option>
+                        <option value="m">m</option>
+                        <option value="inches">inches</option>
+                        <option value="feet">feet</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="tsw-control-group">
+
+                <div class="col">
+
+                    <label>Paper Size</label>
+                    <div class="tsw-styled-select">
+                        <select ng-model="calculator.data.paperSize">
+                            <option value="4">A4</option>
+                            <option value="3">A3</option>
+                            <option value="2">A2</option>
+                            <option value="1">A1</option>
+                            <option value="0">A0</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col last">
+                    <label>Plan Size</label>
+                    <div class="tsw-styled-select">
+                        <select ng-model="calculator.data.planSize">
+                            <option value="4">A4</option>
+                            <option value="3">A3</option>
+                            <option value="2">A2</option>
+                            <option value="1">A1</option>
+                            <option value="0">A0</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="tsw-control-group">
+                <label>Plan Scale</label>
+               1 : <input type="number" class="medium" ng-model="calculator.data.planScale"/>
+            </div>
+
+            <div class="tsw-control-group">
+                <label>Scale</label>
+                <input type="number" class="short" ng-model="calculator.data.scale"/> <span class="tsw-scale">blocks/meter</span>
+            </div>
+
+            <div class="tsw-control-group">
+                <label>Blocks</label>
+                <input type="number" value="{{calculator.blocks()}}"/>
+            </div>
+
+        </form>
+    </div>
+
 
 
 

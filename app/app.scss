@@ -32,6 +32,17 @@ body {
 
 		.tsw-control-group {
 			margin-bottom: 1em;
+			overflow: hidden;
+		}
+
+		.col {
+			width: 50%;
+			float: left;
+			.tsw-styled-select {
+				select {
+					width: 126px;
+				}
+			}
 		}
 
 		label {
@@ -47,8 +58,14 @@ body {
 		input {
 			padding: .5em;
 			font-size: 15px;
-			width: 180px;
-			border: 1px solid #272727
+			width: 253px;
+			border: 1px solid #272727;
+			&.short {
+				width: 180px;
+			}
+			&.medium {
+				width: 233px;
+			}
 		}
 
 		.tsw-styled-select {
