@@ -2,65 +2,42 @@
 
 angular.module('minecraftScaleCalculator', [])
 
+	.factory('distanceToMeters', [function() {
+		return function(unit, distance) {
 
-	.controller('TswMcSCalculator',[function() {
-		var self = this;
-
-		self.data = {
-						distance: 1000,
-						unit: 'mm',
-						scale: 2
-					};
-
-		self.blocks = function () {
 			var m;
 
-			switch(self.data.unit) {
+			switch(unit) {
 				case "mm" :
-					m = self.data.distance / 1000;
+					m = distance / 1000;
 					break;
 				case "cm" :
-					m = self.data.distance / 100;
+					m = distance / 100;
 					break;
 				case "m" :
-					m = self.data.distance;
+					m = distance;
 					break;
 				case "inches":
-					m = self.data.distance / 39.370;
+					m = distance / 39.370;
 					break;
 				case "feet":
-					m = self.data.distance / 3.2808;
+					m = distance / 3.2808;
 					break;
 				default:
-					m = self.data.distance / 1000;
+					m = distance / 1000;
 			}
 
-			var roundedm = (Math.round(m * 2) / 2).toFixed(1);
-
-			return (roundedm * self.data.scale).toFixed(0);
+			return m;
 		}
-
 	}])
 
-	.controller('TswMcSAdvancedCalculator',[function() {
-		var self = this;
+	.factory('calculatePaperMagnification', [function() {
+		return function(paperSize, planSize) {
 
-		self.data = {
-			distance: 26,
-			paperSize: '3',
-			planSize: '1',
-			planScale: 200,
-			paperMagnification: 1,
-			unit: 'mm',
-			scale: 2
-		};
-
-		self.blocks = function () {
-			// Workout magnifcation of plans
 			var paperMagnification = 1;
 
-			var sizeOne = parseInt(self.data.paperSize);
-			var sizeTwo = parseInt(self.data.planSize);
+			var sizeOne = parseInt(paperSize);
+			var sizeTwo = parseInt(planSize);
 
 			if(sizeTwo > sizeOne) {
 				var loopc = sizeTwo - sizeOne;
@@ -77,32 +54,52 @@ angular.module('minecraftScaleCalculator', [])
 				}
 			}
 
-			self.data.paperMagnification = (paperMagnification).toFixed(4);
+			return (paperMagnification).toFixed(4);
+		}
+	}])
+
+
+	.controller('TswMcSCalculator',['distanceToMeters', function(distanceToMeters) {
+		var self = this;
+
+
+		self.data = {
+						distance: 1000,
+						unit: 'mm',
+						scale: 2
+					};
+
+		self.blocks = function () {
+			var m = distanceToMeters(self.data.unit, self.data.distance);
+
+			var roundedm = (Math.round(m * 2) / 2).toFixed(1);
+
+			return (roundedm * self.data.scale).toFixed(0);
+		}
+
+	}])
+
+	.controller('TswMcSAdvancedCalculator',['distanceToMeters', 'calculatePaperMagnification', function(distanceToMeters, calculatePaperMagnification) {
+		var self = this;
+
+		self.data = {
+			distance: 26,
+			paperSize: '3',
+			planSize: '1',
+			planScale: 200,
+			paperMagnification: 1,
+			unit: 'mm',
+			scale: 2
+		};
+
+		self.blocks = function () {
+			// Workout magnification of plans
+
+			self.data.paperMagnification = calculatePaperMagnification(self.data.paperSize, self.data.planSize);
 
 			var scaledDistance = (self.data.distance * self.data.paperMagnification) * self.data.planScale;
 
-			var m;
-
-			switch(self.data.unit) {
-				case "mm" :
-					m = scaledDistance / 1000;
-					break;
-				case "cm" :
-					m = scaledDistance / 100;
-					break;
-				case "m" :
-					m = scaledDistance;
-					break;
-				case "inches":
-					m = scaledDistance / 39.370;
-					break;
-				case "feet":
-					m = scaledDistance / 3.2808;
-					break;
-				default:
-					m = scaledDistance / 1000;
-			}
-
+			var m = distanceToMeters(self.data.unit, scaledDistance);
 
 			var roundedm = (Math.round(m * 2) / 2).toFixed(1);
 
